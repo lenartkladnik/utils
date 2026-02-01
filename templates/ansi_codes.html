@@ -1,0 +1,126 @@
+{% set title = "ANSI" %}
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="main">
+    <div class="topbar">
+        <div class="type-selector" id="type-selector">
+            <span id="color" class="opt selected" onclick="changeType('type-selector', () => changeContents('type-contents', this), this);">Color</span>
+            <span id="cursor" class="opt" onclick="changeType('type-selector', () => changeContents('type-contents', this), this);">Cursor</span>
+            <span id="erase" class="opt" onclick="changeType('type-selector', () => changeContents('type-contents', this), this);">Erase</span>
+            <span id="screen" class="opt" onclick="changeType('type-selector', () => changeContents('type-contents', this), this);">Screen</span>
+            <span id="general" class="opt" onclick="changeType('type-selector', () => changeContents('type-contents', this), this);">General</span>
+        </div>
+
+        <div class="inline">
+        <span class="label">Escape sequence</span>
+        <div style="display: flex;" class="dropdown-selector" onclick="toggleVisibility(document.getElementById('esc-seq'));">
+            <span class="for-esc-seq">\033</span>
+            <span class="dropdown-arrow">▼</span>
+        </div>
+        </div>
+    </div>
+
+    <div id="esc-seq" class="dropdown" style="right: 30px; opacity: 0; transform: none; display: none;">
+        <span class="opt" value="\033" onclick="changeOptAnsi('esc-seq', this); toggleVisibility(document.getElementById('esc-seq'));">\033</span>
+        <span class="opt" value="\x1b" onclick="changeOptAnsi('esc-seq', this); toggleVisibility(document.getElementById('esc-seq'));">\x1b</span>
+        <span class="opt" value="\u001b" onclick="changeOptAnsi('esc-seq', this); toggleVisibility(document.getElementById('esc-seq'));">\u001b</span>
+        <span class="opt" value="\e" onclick="changeOptAnsi('esc-seq', this); toggleVisibility(document.getElementById('esc-seq'));">\e</span>
+        <span class="opt" value="27" onclick="changeOptAnsi('esc-seq', this); toggleVisibility(document.getElementById('esc-seq'));">27</span>
+        <span class="opt" value="^" onclick="changeOptAnsi('esc-seq', this); toggleVisibility(document.getElementById('esc-seq'));">^[</span>
+    </div>
+
+    <br>
+
+    <div id="type-contents" class="contents">
+        <div id="color-contents" style="opacity: 1;">
+            <div class="inline">
+            <div title="Change between foreground and background color" style="display: flex;" class="dropdown-selector" onclick="toggleVisibility(document.getElementById('fb-color'));">
+                <span class="for-fb-color">Foreground</span>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            </div>
+
+            <div id="fb-color" class="dropdown" style="opacity: 0; transform: none; display: none;">
+                <span class="opt" value="38;" onclick="changeOptAnsi('fb-color', this); toggleVisibility(document.getElementById('fb-color'));">Foreground</span>
+                <span class="opt" value="48;" onclick="changeOptAnsi('fb-color', this); toggleVisibility(document.getElementById('fb-color'));">Background</span>
+            </div>
+
+            <div class="inline-start">
+            <div class="ansi-colors">
+                {% for color in colors %}
+                <a title="Click to copy" class="ansi-color copy" style="background-color: {{ color[1] }}; color: {{ color[2] }};" onclick="navigator.clipboard.writeText(`${getOpt('esc-seq')}[${getOpt('fb-color')}5;{{ color[0] }}m`);">{{ color[0] }}</a>
+                {% endfor %}
+            </div>
+
+            <div style="width: 20px;"></div>
+
+            <div class="truecolor">
+                <span>Modern terminals include support for <a target="about:blank" href="https://en.wikipedia.org/wiki/Color_depth#True_color_.2824-bit.29">True color</a>, which allows setting RGB values for the foreground and background color.</span>
+                <br />
+                <span class="shade" style="font-size: 18pt; margin-bottom: 5px;"><span class="esc-seq-str"></span>[<span class="fb-str"></span>2;<input type="text" maxlength=3 placeholder=" r ">;<input type="text" maxlength=3 placeholder=" g ">;<input type="text" maxlength=3 placeholder=" b ">m</span>
+                <br />
+                <span>Get the <span class="shade">;{r};{g};{b}m</span> part by selecting ANSI in the <a href="/color-picker">color picker</a>.</span>
+            </div>
+            </div>
+        </div>
+
+        <div id="cursor-contents" style="opacity: 0; transform: none; display: none;">
+            <div class="ansi-codes-list">
+            {% for sequences, desc in cursor_controls %}
+                <div style="display: grid;">
+                {% for seq in sequences %}
+                    <a class="shade copy" onclick="navigator.clipboard.writeText(`${getOpt('esc-seq')}{{ seq }}`);"><span class="esc-seq-str"></span>{{ seq }}</a>
+                {% endfor %}
+                </div>
+                <span>{{ desc }}</span>
+            {% endfor %}
+            </div>
+        </div>
+
+        <div id="erase-contents" style="opacity: 0; transform: none; display: none;">
+            <div class="ansi-codes-list">
+            {% for sequences, desc in erase %}
+                <div style="display: grid;">
+                {% for seq in sequences %}
+                    <a class="shade copy" onclick="navigator.clipboard.writeText(`${getOpt('esc-seq')}{{ seq }}`);"><span class="esc-seq-str"></span>{{ seq }}</a>
+                {% endfor %}
+                </div>
+                <span>{{ desc }}</span>
+            {% endfor %}
+            </div>
+        </div>
+
+        <div id="screen-contents" style="opacity: 0; transform: none; display: none;">
+            <div class="ansi-codes-list">
+            {% for sequences, desc in screen %}
+                <div style="display: grid;">
+                {% for seq in sequences %}
+                    <a class="shade copy" onclick="navigator.clipboard.writeText(`${getOpt('esc-seq')}{{ seq }}`);"><span class="esc-seq-str"></span>{{ seq }}</a>
+                {% endfor %}
+                </div>
+                <span>{{ desc }}</span>
+            {% endfor %}
+            </div>
+        </div>
+
+        <div id="general-contents" style="opacity: 0; transform: none; display: none;">
+            <div class="ansi-codes-list">
+            {% for sequences, desc in general %}
+                <div style="display: grid;">
+                {% for seq in sequences %}
+                    <a class="shade copy" onclick="navigator.clipboard.writeText(`${getOpt('esc-seq')}{{ seq }}`);"><span class="esc-seq-str"></span>{{ seq }}</a>
+                {% endfor %}
+                </div>
+                <span>{{ desc }}</span>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="static/ansi_codes.js"></script>
+{% endblock %}

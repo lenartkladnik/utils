@@ -1,0 +1,34 @@
+{% set title = "Color picker" %}
+{% extends "base.html" %}
+
+{% block content %}
+<div class="middle">
+    <div class="color-picker-sel-border">
+        <div>
+            <div id="color-picker-sel" style="background: linear-gradient(transparent, black), linear-gradient(to right, white, transparent); background-color: rgb(255, 0, 0);">
+            <div class="sel draggable-x draggable-y" id="main-sel" style="left: 48%; top: 44%;"></div>
+            </div>
+
+            <div id="color-picker-slider">
+            <div class="sel draggable-x" id="slider-sel"></div>
+            </div>
+        </div>
+
+        <div class="color-top">
+            <div id="color-code-chooser">
+            <a id="hex" class="selected" onclick="changeColorTypeTo('hex');">HEX</a>
+            <a id="rgb" onclick="changeColorTypeTo('rgb');">RGB</a>
+            <a id="hsl" onclick="changeColorTypeTo('hsl');">HSL</a>
+            <a id="ansi" onclick="changeColorTypeTo('ansi');">ANSI</a>
+            </div>
+            <div id="color-display">
+            <span title="Click to copy" id="color-code" class="hex-code"></span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="static/color_picker.js"></script>
+{% endblock %}

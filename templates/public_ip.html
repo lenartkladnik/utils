@@ -1,0 +1,9 @@
+{% set title = "Public IP" %}
+{% extends "base.html" %}
+
+{% block content %}
+<div class="big middle">
+    <span>Your public IP address is </span>
+    <a title="Click to copy" class="shade copy" onclick="clipValue(this);">{{ public_ip }}</a>
+</div>
+{% endblock content %}

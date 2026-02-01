@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,
+                                   initial-scale=1.0">
+    <title>Utils - {{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    {% block stylesheet %}
+    {% endblock %}
+</head>
+
+<body>
+    <div class="banner">
+
+    <a class="home" href="/">/{{ title.lower().replace(' ', '-') if title != "Home" else "" }}</a>
+
+    <div class="topbar">
+        <div class="type-selector" id="nav-selector">
+            <span class="opt {{ 'selected' if title == 'Home' else ''}}" onclick="changeType('nav-selector', () => window.location.href = '/', this);">Home</span>
+            <span class="opt {{ 'selected' if title == 'Public IP' else ''}}" onclick="changeType('nav-selector', () => window.location.href = 'public-ip', this);">Public IP</span>
+            <span class="opt {{ 'selected' if title == 'Color picker' else ''}}" onclick="changeType('nav-selector', () => window.location.href = 'color-picker', this);">Color Picker</span>
+            <span class="opt {{ 'selected' if title == 'ANSI' else ''}}" onclick="changeType('nav-selector', () => window.location.href = 'ansi', this);">ANSI</span>
+            <span class="opt {{ 'selected' if title == 'Unicode' else ''}}" onclick="changeType('nav-selector', () => window.location.href = 'unicode', this);">Unicode Browser</span>
+        </div>
+    </div>
+
+    </div>
+
+    {% block content %}{% endblock %}
+
+    <script src="static/script.js"></script>
+    {% block script %}{% endblock %}
+</body>
