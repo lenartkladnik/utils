@@ -2,4 +2,30 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="main">
+    <span>
+    A small collection of no-nonsense tools for developers and designers.
+    <br/>
+    No logins. No tracking. Just useful things that work.
+    <br />
+    <br />
+    Built and maintained by <a target="about:blank" href="https://lenart.kladnik.cc">Lenart Kladnik</a>
+    </span>
+    <br />
+    <span>Free and <a target="about:blank" href="https://github.com/lenartkladnik/utils">open source</a></span>
+
+    <div style="height: 80px;"></div>
+
+    <h1>Content</h1>
+    <hr />
+    {% for name, location, desc in tools %}
+    <a class="tool-name" href="{{ location }}">{{ name }}</a>
+    <br />
+    <br />
+    <span class="tool-desc">{{ desc | safe }}</span>
+    <br />
+    <hr />
+    {% endfor %}
+
+</div>
 {% endblock %}

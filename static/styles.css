@@ -3,6 +3,14 @@
 :root {
     --red-accent-color: #a06e6e;
     --gray-basic-color: #333;
+    --red-basic-color: #bb2121;
+    --green-basic-color: #438d29;
+    --aqua-basic-color: #00f3ff;
+    --blue-dark-color: #0b5e82;
+    --red-dark-color: #aa0000;
+    --green-dark-color: #008002;
+    --purple-dark-color: #800080;
+    --aqua-dark-color: #038080;
 
     --background-color: #161616;
     --darker-background-color: #121212;
@@ -37,6 +45,15 @@ a {
     width: calc(100% - 60px);
 }
 
+.center {
+    position: absolute;
+
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: max-content;
+}
+
 .banner {
     position: relative;
     z-index: 1;
@@ -46,13 +63,17 @@ a {
     border-radius: 8px;
 }
 
+.italic {
+    font-style: italic;
+}
+
 .home {
     position: absolute;
 
     left: 20px;
-    top: 15px;
+    top: 25px;
 
-    font-size: 28pt;
+    font-size: 20pt;
 
     text-decoration: none;
     color: var(--light-text);
@@ -403,4 +424,41 @@ a {
 
 .ansi-codes-list span {
     width: 60vw;
+}
+
+.code {
+    background-color: var(--shade-background-color);
+    border-radius: 6px;
+    padding: 2px;
+}
+
+.tool-name {
+    color: var(--aqua-basic-color);
+}
+
+.tool-desc {
+
+}
+
+.ascii-container {
+    display: flex;
+
+    padding-bottom: 10px;
+}
+
+.ascii-container span {
+    display: inline-block;
+}
+
+.ascii-container .vr {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.status-form {
+
+}
+
+.status-result {
+
 }

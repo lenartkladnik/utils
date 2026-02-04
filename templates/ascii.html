@@ -1,0 +1,31 @@
+{% set title = "ASCII" %}
+{% extends "base.html" %}
+
+{% block content %}
+{% set batch = 48 %}
+{% set iters = round((128 / batch) + 0.5) %}
+{% set padding = 100 %}
+<div class="main center">
+<div class="ascii-container">
+{% for i in range(iters) %}
+<div width="">
+<span>Decimal Hexadecimal <span style="width: 7ch;">Binary</span> Octal Char</span>
+<hr />
+{% for dec, hex, bin, oct, char in ascii[batch*i:batch*(i+1)] %}
+<span style="width: 7ch; color: var(--blue-dark-color);">{{ dec }}</span>
+<span style="width: 11ch; color: var(--red-dark-color);">{{ hex }}</span>
+<span style="width: 7ch; color: var(--green-dark-color);">{{ bin }}</span>
+<span style="width: 5ch; color: var(--purple-dark-color);">{{ oct }}</span>
+<span style="color: var(--aqua-dark-color);">{{ char | safe }}</span>
+<br />
+{% endfor %}
+</div>
+
+{% if i < iters - 1 %}
+<hr class="vr" />
+{% endif %}
+
+{% endfor %}
+</div>
+</div>
+{% endblock %}

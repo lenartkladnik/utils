@@ -71,7 +71,7 @@ function recalcColorMain() {
 
     let text_color = r > 255 / 2 || g > 255 / 2 || b > 255 / 2 ? "#101010" : "#EFEFEF";
 
-    let hex = r.toString(16) + g.toString(16) + b.toString(16);
+    let hex = r.toString(16).padStart(2, '0') + g.toString(16).padStart(2, '0') + b.toString(16).padStart(2, '0');
 
     document.getElementById("color-display").style.backgroundColor = color;
     document.getElementById("color-code-chooser").style.backgroundColor = color.substr(0, color.length - 1) + ', 0.4)';

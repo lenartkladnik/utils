@@ -1,0 +1,14 @@
+{% set title = "Status" %}
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main">
+<form class="status-form" method="POST">
+    <input type="url" name="uri" placeholder="https://example.com" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)" size="30" required>
+</form>
+{% if status %}
+<br />
+<span class="status-result">{{ status | safe }}</span>
+{% endif %}
+</div>
+{% endblock %}
