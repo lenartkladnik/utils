@@ -1,3 +1,5 @@
+from http.client import responses
+
 def ansi_colors() -> list[tuple[int, str, str]]:
     colors = []
 
@@ -176,5 +178,7 @@ tools_list = [
     ("Color Picker", "/color-picker", "Minimal color picker that supports HEX, RGB, HSL, and ANSI color output (<span class=\"code\">;2;{r};{g};{b}m</span>, for terminal use)."),
     ("ANSI", "/ansi", "A reference and helper for ANSI escape codes.<br />Includes color, cursor, screen, and erase controls, with a general tab for uncategorized or rarely used sequences."),
     ("ASCII", "/ascii", "A table of ASCII character with the corresponding codes in multiple formats."),
-    ("Status", "/status", "Check if a website is down or up and what HTTP status code it returns."),
+    ("URL", "/url", "Url related utilities: check if a website is down, testing the safety of urls."),
 ]
+
+status_codes = [(str(i), responses.get(i, "Undefined")) for i in range(200, 600)]

@@ -1,0 +1,39 @@
+{% set title = "URL" %}
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main url-main">
+
+<div>
+<span class="border-container-label">Status</span>
+<div class="border-container">
+    <form class="status-form" method="POST">
+        <span>URL:</span>
+        <input type="url" name="uri" placeholder="https://example.com" pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)" size="30" required>
+        <br />
+        <button>Check</button>
+        <input type="hidden" name="action-type" value="status" />
+    </form>
+    <br />
+    <span class="status-result">Response:</span>
+    <span class="status-result">{{ status | safe if status else "" }}</span>
+</div>
+</div>
+<div>
+<span class="border-container-label">HTTP status code</span>
+<div class="border-container">
+    <input type="text" class="opts-input" oninput="HTTPStatusChange(this);" placeholder="Status code or description">
+    <div class="opts-dropdown">
+        {% for code, desc in status_codes %}
+        <span style="display: none;" data-code="{{ code }}" data-desc="{{ desc }}" class="http-status-opt">{{ code }}: {{ desc }}</span>
+        {% endfor %}
+    </div>
+</div>
+</div>
+
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="static/url.js"></script>
+{% endblock %}

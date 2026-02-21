@@ -18,12 +18,9 @@
 
     <div class="topbar">
         <div class="type-selector" id="nav-selector">
-            <span class="opt {{ 'selected' if title == 'Home' else ''}}" onclick="changeType('nav-selector', () => window.location.href = '/', this);">Home</span>
-            <span class="opt {{ 'selected' if title == 'Public IP' else ''}}" onclick="changeType('nav-selector', () => window.location.href = 'public-ip', this);">Public IP</span>
-            <span class="opt {{ 'selected' if title == 'Color picker' else ''}}" onclick="changeType('nav-selector', () => window.location.href = 'color-picker', this);">Color Picker</span>
-            <span class="opt {{ 'selected' if title == 'ANSI' else ''}}" onclick="changeType('nav-selector', () => window.location.href = 'ansi', this);">ANSI</span>
-            <span class="opt {{ 'selected' if title == 'ASCII' else ''}}" onclick="changeType('nav-selector', () => window.location.href = 'ascii', this);">ASCII</span>
-            <span class="opt {{ 'selected' if title == 'Status' else ''}}" onclick="changeType('nav-selector', () => window.location.href = 'status', this);">Status</span>
+            {% for title_str, path, _ in tools_list %}
+            <span class="opt {{ 'selected' if title == title_str else ''}}" onclick="changeType('nav-selector', () => window.location.href = '{{ path }}', this);">{{ title_str }}</span>
+            {% endfor %}
         </div>
     </div>
 

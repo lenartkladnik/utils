@@ -1,4 +1,4 @@
-{% set title = "Color picker" %}
+{% set title = "Color Picker" %}
 {% extends "base.html" %}
 
 {% block content %}
@@ -22,10 +22,13 @@
             <a id="ansi" onclick="changeColorTypeTo('ansi');">ANSI</a>
             </div>
             <div id="color-display">
-            <span title="Click to copy" id="color-code" class="hex-code"></span>
+            <form onsubmit="recalcPosition(event)">
+            <input title="Click to copy" id="color-code" class="hex-code"></input>
+            </form>
             </div>
         </div>
     </div>
+    <i class="instructions">*Click once on the color value to copy a ready to paste color string, double click to enter a custom color and press enter to apply</i>
 </div>
 {% endblock %}
 
