@@ -18,7 +18,7 @@
 
     <div class="topbar">
         <div class="type-selector" id="nav-selector">
-            {% for title_str, path, _ in tools_list %}
+            {% for title_str, path, _ in [("Home", "/", "")] + tools_list %}
             <span class="opt {{ 'selected' if title == title_str else ''}}" onclick="changeType('nav-selector', () => window.location.href = '{{ path }}', this);">{{ title_str }}</span>
             {% endfor %}
         </div>
