@@ -12,10 +12,12 @@ def index():
 
 @app.route('/public-ip')
 def public_ip():
-    if is_text_request(request):
-        return f"{request.remote_addr}\n"
+    ip = request.headers.get('CF-Connecting-IP') or request.remote_addr # Fallback to remote_addr in case this isn't hosted trough cloudflare tunnels
 
-    return render_template("public_ip.html", tools_list=tools_list, public_ip=request.remote_addr)
+    if is_text_request(request):
+        return f"{ip}\n"
+
+    return render_template("public_ip.html", tools_list=tools_list, public_ip=ip)
 
 @app.route('/color-picker')
 def color_picker():
